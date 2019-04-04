@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>vocaGLize</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+  
+  
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+
+  <script class="vertex" type="x-shader/x-vertex">
+  uniform float time;
+  uniform vec2 resolution;
+  uniform float choice;
+
+  varying vec2 vUv;
+
+  void main() {
+    vUv = uv;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+</script>
+
+<script class="fragment" type="x-shader/x-fragment">
+  uniform float time;
+  uniform vec2 resolution;
+  uniform float choice;
+
+  varying vec2 vUv;
+
+  void main() {
+    vec2 position = -1.0 + 2.0 * vUv;
+    float r = abs(sin(abs(position.x * position.y) + choice + time / 21.0));
+    float g = abs(sin(abs(position.x * position.y) + choice + time / 15.0));
+    float b = abs(sin(abs(position.x * position.y) + choice + time / 9.0));
+    gl_FragColor = vec4(r, g, b, 1.0);
+  }
+</script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.3/dat.gui.min.js'></script>
+
+  
+
+    <script  src="js/index.js"></script>
+
+
+
+
+</body>
+
+</html>
